@@ -9,10 +9,17 @@ export default function Order() {
     );
   }, [agentValue.agent]);
 
+  function UpdateOrder() {
+    let Orders = agentValue.agent.Orders + 1;
+    let AgentName = agentValue.agent.AgentName;
+    let Email = agentValue.agent.Email;
+    return { Orders, AgentName, Email };
+  }
+
   return (
     <div>
       <p>Order amount : {agentValue.agent.Orders}</p>
-      <button onClick={() =>  agentValue.setAgent(agentValue.agent.Orders+1)}>Click</button>
+      <button onClick={() => agentValue.setAgent(UpdateOrder())}>Click</button>
     </div>
   );
 }
