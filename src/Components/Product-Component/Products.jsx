@@ -8,7 +8,7 @@ export default function  Product () {
     } , [])
     return (
         <div>
-            
+            <p>Product component</p>
         </div>
     )
 }
