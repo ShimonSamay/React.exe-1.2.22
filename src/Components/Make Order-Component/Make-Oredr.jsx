@@ -2,37 +2,27 @@ import React, { useContext, useEffect } from "react";
 import { AgentContext } from "../../Contexts/Agent-Context";
 
 export default function MakeOrder() {
-  let agentValue = useContext(AgentContext);
-  console.log(agentValue.agent);
+  let { agent , setAgent} = useContext(AgentContext); // Destruction .
+
   useEffect(() => {
-    alert(`Make Order - Order Number : ${agentValue.agent.Orders}`);
-  }, [agentValue.agent]);
+    alert(`Make Order - Order Number : ${agent.Orders}`);
+  }, [agent]);
 
-  function updateagentName(e) {
-    agentValue.agent.AgentName = e.target.value;
+  function updateValues(e) {
+    agent[e.target.name] = e.target.value; // How to update multiple fields in object using one function that takes the required filed from the input name .
   }
 
-  function updateOrderNumber(e) {
-    agentValue.agent.Orders = e.target.value;
-  }
-
-  function updateEmail(e) {
-    agentValue.agent.Email = e.target.value;
-  }
   function updateAll() {
-    let AgentName = agentValue.agent.AgentName;
-    let Orders = agentValue.agent.Orders;
-    let Email = agentValue.agent.Email;
-    return { AgentName, Orders, Email };
+    setAgent({...agent}) ; // Serialization is needed when your state is an object and you want to update the state and  . 
   }
 
   return (
     <div>
-      <p>{agentValue.agent.AgentName}</p>
-      <input onChange={updateagentName} placeholder="Agent Name" />
-      <input onChange={updateOrderNumber} placeholder="Order Number" />
-      <input onChange={updateEmail} placeholder="Email" />
-      <button onClick={() => agentValue.setAgent(updateAll())}> Print </button>
+      <p>{agent.AgentName}</p>
+      <input name="AgentName" onChange={updateValues} placeholder="Agent Name"/>
+      <input name="Orders" onChange={updateValues} placeholder="Order Number" />
+      <input name="Email" onChange={updateValues} placeholder="Email" />
+      <button onClick={updateAll}> Print </button>
     </div>
   );
 }

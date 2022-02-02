@@ -2,24 +2,22 @@ import React, { useContext, useEffect } from "react";
 import { AgentContext } from "../../Contexts/Agent-Context";
 
 export default function Order() {
-  let agentValue = useContext(AgentContext);
+  let {agent , setAgent} = useContext(AgentContext);
   useEffect(() => {
     alert(
-      `Order Component - Email : ${agentValue.agent.Email} | Orders Amount : ${agentValue.agent.Orders}`
+      `Order Component - Email : ${agent.Email} | Orders Amount : ${agent.Orders}`
     );
-  }, [agentValue.agent]);
+  }, [agent]);
 
   function UpdateOrder() {
-    let Orders = agentValue.agent.Orders + 1;
-    let AgentName = agentValue.agent.AgentName;
-    let Email = agentValue.agent.Email;
-    return { Orders, AgentName, Email };
+    agent.Orders+=1 ;
+   setAgent({...agent});
   }
 
   return (
     <div>
-      <p>Order amount : {agentValue.agent.Orders}</p>
-      <button onClick={() => agentValue.setAgent(UpdateOrder())}>Click</button>
+      <p>Order amount : {agent.Orders}</p>
+      <button onClick={UpdateOrder}>Click</button>
     </div>
   );
 }
